@@ -1,0 +1,12 @@
+# Ignore compiled code and docs
+target/
+
+# Ignore packages downloaded by dbt
+dbt_packages/
+
+# Ignore dbt logs
+logs/
+
+# Ignore any local environment variables or profiles if you moved them here
+.env
+profiles.yml

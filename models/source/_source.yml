@@ -1,0 +1,12 @@
+# models/staging/_sources.yml
+version: 2
+
+sources:
+  - name: tpch
+    database: RAW_DB
+    schema: TPCH
+    tables:
+      - name: customer
+      - name: orders
+      - name: lineitem
+      - name: part

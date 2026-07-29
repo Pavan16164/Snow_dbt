@@ -1,0 +1,33 @@
+name: 'snowdbt'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'snowdbt'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+models:
+  snowdbt:
+    # 1. Models in the /models/source folder go to the BRONZE schema
+    source:
+      +schema: bronze
+      
+    # 2. Models in the /models/silver folder go to the SILVER schema
+    silver:
+      +schema: silver
+      
+    # 3. Models in the /models/marts folder go to the GOLD schema
+    marts:
+      +schema: gold

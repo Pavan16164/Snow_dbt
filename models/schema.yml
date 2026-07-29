@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: silver_orders
+    description: "Cleansed and deduplicated orders data."
+    columns:
+      - name: order_id
+        description: "Primary key for the order."
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_order_lines
+    description: "Incremental fact table representing individual line items."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          
+      - name: part_id
+        tests:
+          - not_null
+      - name: TOTAL_CHARGED_AMOUNT
+        tests:
+          - not_null
+          - is_positive
+              
+
+          # Referential Integrity Test: Fails if the fact table contains a part_id that doesn't exist in the parts dimension
