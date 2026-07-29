@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        tags = ['snowdbt']
+        tags = ['snowdbt','customers']
     )
 }}
 with cte as(
