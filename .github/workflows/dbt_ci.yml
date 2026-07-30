@@ -10,7 +10,6 @@ jobs:
   run_dbt:
     runs-on: ubuntu-latest
 
-    # This pulls your secure keys from GitHub Secrets and maps them to environment variables
     env:
       DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       DBT_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -33,7 +32,11 @@ jobs:
         run: |
           pip install dbt-snowflake
 
-      - name: Run dbt Test
+      - name: Run dbt Production Sequence (Approach B)
         run: |
           dbt deps
-          dbt test --target prod
+          dbt seed
+          dbt run --select bronze silver   # 1. Build Bronze and Silver first so clean data exists
+          dbt snapshot                    # 2. Snapshot the clean Silver data to build SCD Type 2 history
+          dbt run                         # 3. Run the rest of the project (Gold / Marts) using the snapshot
+          dbt test                        # 4. Run all data quality tests
