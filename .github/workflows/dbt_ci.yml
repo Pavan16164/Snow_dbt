@@ -10,7 +10,6 @@ jobs:
   run_dbt:
     runs-on: ubuntu-latest
 
-    # This pulls your secure keys from GitHub Secrets and maps them to environment variables
     env:
       DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       DBT_SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -33,7 +32,7 @@ jobs:
         run: |
           pip install dbt-snowflake
 
-      - name: Run dbt Test
+      - name: Run dbt Production Sequence (Approach B)
         run: |
-          dbt deps
-          dbt test --target prod
+          dbt snapshot                                          
+          dbt test                        
