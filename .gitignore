@@ -9,4 +9,3 @@ logs/
 
 # Ignore any local environment variables or profiles if you moved them here
 .env
-profiles.yml

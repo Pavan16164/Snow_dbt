@@ -2,7 +2,7 @@
 {{
     config(
         materialized = 'incremental',
-        tags = ['snowdbt']
+        tags = ['snowdbt','lineItems']
 
     )
 }}
