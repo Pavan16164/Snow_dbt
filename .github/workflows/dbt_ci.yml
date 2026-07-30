@@ -5,6 +5,10 @@ on:
     branches: [ "dev", "main" ]
   pull_request:
     branches: [ "dev", "main" ]
+  
+  # INDUSTRY STANDARD: Runs every hour on the hour (e.g., 1:00, 2:00, 3:00)
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   run_dbt:
@@ -36,11 +40,15 @@ jobs:
       - name: Install dbt dependencies
         run: dbt deps
 
+      # Runs on Dev/PR events
       - name: Run dbt Build (Pull Request & Dev)
         if: github.ref != 'refs/heads/main'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           dbt build --target dev
 
+      # Runs when code hits main OR when the hourly cron triggers
       - name: Run dbt Build (Production - Main Branch)
         if: github.ref == 'refs/heads/main'
         run: |
