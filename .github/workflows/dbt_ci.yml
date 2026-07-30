@@ -8,7 +8,7 @@ on:
   
   # INDUSTRY STANDARD: Runs every hour on the hour (e.g., 1:00, 2:00, 3:00)
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   run_dbt:
