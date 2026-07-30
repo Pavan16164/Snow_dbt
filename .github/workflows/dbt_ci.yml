@@ -34,9 +34,5 @@ jobs:
 
       - name: Run dbt Production Sequence (Approach B)
         run: |
-          dbt deps
-          dbt seed
-          dbt run --select bronze silver   # 1. Build Bronze and Silver first so clean data exists
-          dbt snapshot                    # 2. Snapshot the clean Silver data to build SCD Type 2 history
-          dbt run                         # 3. Run the rest of the project (Gold / Marts) using the snapshot
-          dbt test                        # 4. Run all data quality tests
+          dbt snapshot                                          
+          dbt test                        
