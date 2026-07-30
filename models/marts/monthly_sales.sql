@@ -24,7 +24,8 @@ monthly_aggregate as (
         sum(f.quantity) as total_items_sold,
         sum(f.extended_price) as gross_revenue,
         sum(f.discount) as total_discount_given,
-        sum(f.total_charged_amount) as net_revenue
+        sum(f.total_charged_amount) as net_revenue,
+        1 as test
 
     from facts f
     left join customers c
